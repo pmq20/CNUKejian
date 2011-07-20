@@ -4,6 +4,10 @@ CNUKejian is a courseware sharing system designed for Capital Normal University.
 
 If you happen to be on Capital Normal University campus, this system can be reached at [192.168.145.253](http://192.168.145.253).
 
+* If your school also has a [URP综合教务系统](http://www.urpsoft.com) up and running, the code could apply to you directly.
+* If you search `URP综合教务系统` on google, actually lot of schools are using it!
+* Otherwise, you have to tune the code in order to make it work for your school.
+
 ## Adjust Some Constants
 
 Some constants are recorded inside `config/initializers/constants.rb`.
@@ -13,8 +17,8 @@ DATA_DIR = '/data_remote'
 LOGINPATH = 'http://202.204.208.75/loginAction.do?zjh=student_number&mm=password_md5_hash'
 ```
 
-	* DATA_DIR is where user uploaded files are stored
-	* LOGINPATH is a valid user that can be used to initially log in for intial info importing, see the next section
+* DATA_DIR is where user uploaded files are stored
+* LOGINPATH is a valid user that can be used to initially log in for intial info importing, see the next section
 
 
 ## Initial Information Importing
@@ -68,11 +72,8 @@ def import_info(deep=false)
 
 ## The Movie
 
-Have you seen the movie [CNUKejian](http://www.tudou.com/programs/view/cs_3XbMm4Vg/)? It's short, but funny though XD.
+Have you seen the movie [CNUKejian](http://www.tudou.com/programs/view/cs_3XbMm4Vg/)? It's short but funny though XD.
 
 ## Other issues
 
-* If your school also has a [URP综合教务系统](http://www.urpsoft.com) up and running, the code could apply to you directly.
-* If you search `URP综合教务系统` on google, actually lot of schools are using it!
-* Otherwise, you have to tune the code in order to make it work for your school.
-* Under GNU GENERAL PUBLIC LICENSE is this code available.
+Under GNU GENERAL PUBLIC LICENSE is this code available.
