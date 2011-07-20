@@ -1,0 +1,306 @@
+<table cellspacing="0" cellpadding="0" border="0" width="100%" class="fieldsettop">
+    <tbody><tr> 
+        <td>  
+<table cellspacing="0" cellpadding="0" border="0" align="center" width="99%">
+  <tbody><tr> 
+    <td class="infoBg1">&nbsp;</td>
+    <td class="infoBg2"><table cellspacing="0" cellpadding="0" border="0">
+        <tbody><tr> 
+          <td class="legend">用户信息</td>
+        </tr>
+      </tbody></table></td>
+    <td class="infoBg3">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td class="infoBg4">&nbsp;</td>
+    <td>
+
+	<table cellspacing="0" cellpadding="0" border="0" width="100%" class="titleTop3">
+		<tbody><tr>
+			<td id="td_avatar" style="vertical-align:center;text-align:center;width:200px;">
+				<img src="/images/avatars/<%=@user.avatar%>"><br>
+				<strong><%=@user.ontology%></strong>
+			</td>
+			<td valign="top"> 
+				<table cellspacing="0" cellpadding="2" border="0">
+					<tbody>
+					<tr> 
+						<td align="right" width="60" nowrap="" class="fieldName">登录次数:</td>
+						 <td>						 
+						 <%=@user.sign_in_count%>
+						 </td>
+						<td width="3">&nbsp;</td>
+						<td width="80" class="fieldName">
+							用户等级:
+						</td>
+						<td width="3">&nbsp;</td>
+						<td>  
+						
+						<img src="/images/pips<%=@user.level%>.gif">
+		
+		
+						</td>
+
+					</tr>
+					<tr> 
+						<td height="3" colspan="6"></td>
+					</tr>
+					<tr> 
+				
+						<td align="right" width="60" nowrap="" class="fieldName">学院:</td>
+						 <td>						 
+<%=@user.institue_name%>
+						 </td>
+						<td width="3">&nbsp;</td>
+						<td width="80" class="fieldName">
+							等级头衔:
+						</td>
+						<td width="3">&nbsp;</td>
+						<td>  
+						<span style="color:#990000"><%=@user.level_name%></span>
+
+		
+		
+						</td>
+					</tr>
+					
+					<tr> 
+						<td height="3" colspan="6"></td>
+					</tr>
+					<tr> 
+					
+					
+					
+								
+						<td align="right" width="60" nowrap="" class="fieldName">E-mail:</td>
+						 <td>						 
+<% mail = @user.email.split('@')%>
+<%=mail[0]%> # <%=mail[1]%> 
+						 </td>
+						<td width="3">&nbsp;</td>
+						<td width="80" class="fieldName">
+							积分:
+						</td>
+						<td width="3">&nbsp;</td>
+						<td>  
+						
+<%=@user.credit_display%> <%if @user.credit<0%> (<%=@user.credit_qingkuang%>)<%end%>
+		
+		
+						</td>
+						
+
+					</tr>
+					
+					<tr> 
+						<td height="3" colspan="6"></td>
+					</tr>
+					<tr> 
+					
+					
+					
+								
+						<td align="right" width="60" nowrap="" class="fieldName">信息:</td>
+						 <td>
+<%=render :partial=>'shared/user_info',:locals=>{:user=>@user}%>
+						 </td>
+						<td width="3">&nbsp;</td>
+						<td width="80" class="fieldName">
+							上传数:
+						</td>
+						<td width="3">&nbsp;</td>
+						<td>  
+						
+<%=@user.coursewares_count%>
+		
+		
+						</td>
+						
+
+					</tr>
+				</tbody></table>
+				</td>
+		</tr>
+	</tbody></table>
+	</td>
+    <td class="infoBg5">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td class="infoBg6">&nbsp;</td>
+    <td class="infoBg2">&nbsp;</td>
+    <td class="infoBg8">&nbsp;</td>
+  </tr>
+</tbody></table>               
+
+<!-- user information -->
+ 
+
+
+
+
+</td>
+</tr>
+</tbody></table>
+
+
+<table cellspacing="0" cellpadding="0" border="0" width="100%" class="fieldsettop" id="shangchuandekejian">
+    <tbody><tr> 
+        <td>  
+<table cellspacing="0" cellpadding="0" border="0" align="center" width="99%">
+  <tbody><tr> 
+    <td class="infoBg1">&nbsp;</td>
+    <td class="infoBg2"><table cellspacing="0" cellpadding="0" border="0">
+        <tbody><tr> 
+          <td class="legend"><%= @user.ontology%>上传的课件</td>
+        </tr>
+      </tbody></table></td>
+    <td class="infoBg3">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td class="infoBg4">&nbsp;</td>
+    <td>
+
+	<table cellspacing="0" cellpadding="0" border="0" width="100%" class="titleTop3">
+		<tbody>
+		<tr>
+				 <td class="pageAlign">
+			<table width="100%" cellspacing="1" cellpadding="0" border="0" class="displayTag" id="user">
+			<thead>
+			<tr>
+        	<th width="10%" align="center" class="sortable">上传时间</th>
+        	<th width="10%" align="center" class="sortable">课程</th>
+        	<th align="center" class="sortable">标题</th>
+        	<th width="10%" align="center" class="sortable">文件数</th>
+        	<th width="10%" align="center" class="sortable">定价</th>
+        	<th width="10%" align="center" class="sortable">销量</th>
+
+        </tr>
+        </thead>
+        <tbody>
+       <%@user.coursewares.order('created_at DESC').each do |cw|%>
+        <tr class="even" onmouseout="this.className='even';" onmouseover="this.className='evenfocus';">
+        <td align="center"><%=cw.created_at.strftime("%Y-%m-%d %H:%M:%S")%></td>
+        <td align="center"><%=link_to cw.course.name,cw.course%><br><%=link_to cw.teacher.name,"/teachers/#{cw.teacher_id}/courses/#{cw.course_id}"%></td>
+        <td align="center"><a href="/coursewares/<%=cw.id%>">[<%=cw.klass_name%>] <%=cw.title%></a></td>
+        <td align="center"><%=cw.assets_count%>个文件        <%='<br><span style="color:red">(等待审核)</span>'.html_safe if cw.hidden%></td>
+        <td align="center"><%=cw.price%></td>
+        <td align="center"><%=link_to cw.purchases_count,"/coursewares/#{cw.id}?whosbought=1#whosbought"%>
+
+        
+        </td>
+        </tr>
+<%end%>        
+  </tbody></table>
+												
+												
+											</td>
+		
+		</tr>
+		
+		
+	</tbody></table>
+	</td>
+    <td class="infoBg5">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td class="infoBg6">&nbsp;</td>
+    <td class="infoBg2">&nbsp;</td>
+    <td class="infoBg8">&nbsp;</td>
+  </tr>
+</tbody></table>               
+
+<!-- user information -->
+ 
+
+
+
+
+</td>
+</tr>
+</tbody></table>
+
+
+
+
+
+
+<table cellspacing="0" cellpadding="0" border="0" width="100%" class="fieldsettop" id="shangchuandekejian">
+    <tbody><tr> 
+        <td>  
+<table cellspacing="0" cellpadding="0" border="0" align="center" width="99%">
+  <tbody><tr> 
+    <td class="infoBg1">&nbsp;</td>
+    <td class="infoBg2"><table cellspacing="0" cellpadding="0" border="0">
+        <tbody><tr> 
+          <td class="legend"><%= @user.ontology%>下载的课件</td>
+        </tr>
+      </tbody></table></td>
+    <td class="infoBg3">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td class="infoBg4">&nbsp;</td>
+    <td>
+
+	<table cellspacing="0" cellpadding="0" border="0" width="100%" class="titleTop3">
+		<tbody>
+		<tr>
+				 <td class="pageAlign">
+			<table width="100%" cellspacing="1" cellpadding="0" border="0" class="displayTag" id="user">
+			<thead>
+			<tr>
+        	<th width="10%" align="center" class="sortable">上传时间</th>
+        	<th width="10%" align="center" class="sortable">课程</th>
+        	<th align="center" class="sortable">标题</th>
+        	<th width="10%" align="center" class="sortable">文件数</th>
+        	<th width="10%" align="center" class="sortable">定价</th>
+        	<th width="10%" align="center" class="sortable">销量</th>
+
+        </tr>
+        </thead>
+        <tbody>
+       <%@user.purchases.order('created_at DESC').each do |pur|%>
+			 <% cw=pur.courseware  %>
+			<% next if cw.hidden  %>
+        <tr class="even" onmouseout="this.className='even';" onmouseover="this.className='evenfocus';">
+        <td align="center"><%=pur.created_at.strftime("%Y-%m-%d %H:%M:%S")%></td>
+        <td align="center"><%=link_to cw.course.name,cw.course%><br><%=link_to cw.teacher.name,"/teachers/#{cw.teacher_id}/courses/#{cw.course_id}"%></td>
+        <td align="center"><a href="/coursewares/<%=cw.id%>">[<%=cw.klass_name%>] <%=cw.title%></a></td>
+        <td align="center"><%=cw.assets_count%>个文件</td>
+        <td align="center"><%=cw.price%></td>
+        <td align="center"><%=link_to cw.purchases_count,"/coursewares/#{cw.id}?whosbought=1#whosbought"%></td>
+        </tr>
+<%end%>        
+  </tbody></table>
+												
+												
+											</td>
+		
+		</tr>
+		
+		
+	</tbody></table>
+	</td>
+    <td class="infoBg5">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td class="infoBg6">&nbsp;</td>
+    <td class="infoBg2">&nbsp;</td>
+    <td class="infoBg8">&nbsp;</td>
+  </tr>
+</tbody></table>               
+
+<!-- user information -->
+ 
+
+
+
+
+</td>
+</tr>
+</tbody></table>
+
+
+
+
+
+

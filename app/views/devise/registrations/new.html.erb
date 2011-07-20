@@ -1,0 +1,182 @@
+<%params[:xiaowai]="1" if @user.xiaowai%>
+<style type="text/css">
+.td2 {
+		padding:5px;
+    background-color: #F5F6F7;
+    font-size:15px;
+    line-height: 135%;
+    color: #212063;
+    font-size: 15px
+    font-weight: normal;
+    text-align: left;
+}
+input{
+font-size: 15px;
+}
+</style>
+
+
+
+<div width="100%" style="overflow:auto;height:650" id="divCoHome">
+	<table border="0" width="100%" cellspacing="10" cellpadding="0">
+								  <tbody>
+									<tr>
+
+				<!--   start     -->
+
+
+
+								    <td width="100%" valign="top" height="100%"> 
+								      
+	
+	
+	
+	
+	
+				
+
+
+<table border="0" width="100%" cellspacing="10" cellpadding="0">
+							  <tbody>
+								<tr>
+
+			<!--   start     -->
+
+
+
+							    <td width="100%" valign="top" height="100%"> 
+							      <table border="0" width="100%" cellspacing="0" cellpadding="0">
+							        <tbody>
+
+
+
+
+
+			        <tr>
+			          <td height="8"></td>
+			        </tr>
+
+
+
+			        <tr>
+			          <td><table border="0" width="100%" cellspacing="0" cellpadding="0" class="homebody1">
+			              <tbody><tr> 
+			                <td valign="top">
+												<table border="0" width="100%" cellspacing="0" cellpadding="0" class="homebody2">
+												                    <tbody><tr> 
+												                      <td>
+												                        <table border="0" width="100%" cellspacing="0" cellpadding="0" class="homebody5">
+												                          <tbody><tr> 
+												                            <td>
+												                            									
+<p class="" style="font-size:13px">
+<%if params[:xiaowai]%>
+老师或校外用户您好：<br>
+　　欢迎注册CNU课件交流系统！请使用以字母开头的用户名代替学号注册。<%else%>
+同学您好：<br>
+　　强烈建议您填写与您的<span style="color:blue">首师大选课系统</span>一致的帐号密码，这样系统可以自动读取您感兴趣的课程加入"我的课程"栏目，而且使用选课系统密码的用户将被标记为“<b>通过身份认证</b>”，可获得8.0点初始积分，而且上传无需等待审核。<br>
+　　CNU课件交流系统不会在数据库或日志文件中存储密码明文，也不会修改您的选课系统内容。另外为保护隐私，注册后您可在“我的资料”中设置昵称以隐藏学号信息。如果您注册时遇到任何困难，请毫不犹豫地<a href="/contact">联系我们</a>：）
+<%end%>
+
+<div style="text-align:center;margin-top:15px;<% unless @user.errors.empty? %>display:none<%end%>" id="ok_display_that">
+<input type="button" value="OK，显示注册表单" onclick="$('#user_new').toggle();$('#ok_display_that').hide()">
+</div>
+
+</p>
+																			</td></tr></tbody></table>
+
+												                            </td>
+												                          </tr>
+												                        </tbody></table>
+				
+											</td>
+			              </tr>  
+			            </tbody></table>
+			            </td>
+
+
+			<!--    mid    -->
+
+
+
+			<!-- end -->
+
+
+
+
+			  </tr>
+			</tbody></table>
+
+
+	
+
+
+
+
+	
+
+
+
+</td></tr></tbody></table></td></tr></tbody></table></div>
+
+
+
+<center style="margin-top:8px">
+<%style=''%>
+<%style='display:none' if @user.errors.empty? %>
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name),:html=>{:style=>style}) do |f| %>
+<table cellspacing="2" cellpadding="6" border="0"> 
+ <tbody>
+ <tr>
+  <td nowrap="" class="td2" style="text-align:right">
+  <%if params[:xiaowai]%>
+  用户名
+  <% @user.xiaowai=true %>
+  <%=f.hidden_field :xiaowai%>
+  <%else%>学　　号<%end%>:</td> 
+  <td class="td2"> 
+    <%= f.text_field :number,:style=>"width:250px" %>
+  </td> 
+ </tr>
+ <tr> 
+  <td nowrap="" class="td2" style="text-align:right">电子邮箱:</td> 
+  <td class="td2">
+    <%= f.text_field :email,:style=>"width:250px" %>
+  </td> 
+ </tr> 
+ <tr> 
+  <td class="td2" style="text-align:right">密　　码:</td> 
+  <td class="td2"> 
+    <%= f.password_field :password,:style=>'width:250px' %> 
+  </td> 
+ </tr> 
+ <tr> 
+  <td class="td2" style="text-align:right">密码确认:</td> 
+  <td class="td2"> 
+    <%= f.password_field :password_confirmation,:style=>'width:250px' %> 
+  </td> 
+ </tr> 
+ <tr> 
+  <td> 
+
+  </td> 
+ </tr>
+ 
+ <tr> 
+  <td align="center" colspan="2" style="padding-top:13px"> 
+  <%= submit_tag '立即注册',:onclick=>"this.disabled=true;this.value='处理中，请稍等';$('#user_new').submit();return false;"%>
+
+  </td>
+ </tr> 
+</tbody></table> 
+<% end %>
+<div style="margin-top:10px">
+<%if params[:xiaowai]%>
+ <%=link_to '校内用户注册','/users/sign_up',:style=>'font-size:15px'%>
+<%else%>
+ <%=link_to '老师或校外用户注册','/users/sign_up?xiaowai=1',:style=>'font-size:15px'%>
+<%end%>
+</div>
+</center>
+
+

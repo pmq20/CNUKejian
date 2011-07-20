@@ -1,0 +1,232 @@
+<table width="100%" cellspacing="0" cellpadding="0" border="0" class="fieldsettop">
+    <tbody><tr> 
+        <td>    
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+  <tbody><tr class="infoBg2"> 
+    <td class="infoBg1">&nbsp;</td>
+    <td><table cellspacing="0" cellpadding="0" border="0">
+        <tbody><tr> 
+          <td class="legend">个人积分情况统计</td>
+        </tr>
+      </tbody></table></td>
+    <td class="infoBg3">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td class="infoBg4">&nbsp;</td>
+    <td>
+
+	<table width="100%" cellspacing="0" cellpadding="0" border="0" class="titleTop2">
+		<tbody><tr>
+		 <td class="pageAlign">
+			<table width="100%" cellspacing="1" cellpadding="0" border="0" id="user" class="displayTag">
+			<thead>
+			<tr>
+        	<th width="10%" align="center" class="sortable">上传数</th>
+        	<th width="10%" align="center" class="sortable">课件卖出获利</th>
+        	<th width="10%" align="center" class="sortable">下载数</th>
+        	<th width="10%" align="center" class="sortable">课件购买花销</th>
+        	<th width="10%" align="center" class="sortable">目前积分</th>
+        	<th width="10%" align="center" class="sortable">坏帐情况</th>
+        </tr>
+        </thead>
+        <tbody><tr onmouseover="this.className='evenfocus';" onmouseout="this.className='even';" class="even">
+        <td align="center"><%=current_user.coursewares_count%></td>
+        <td align="center"><%=sprintf("%.1f",@huoli)%></td>
+        <td align="center"><%=current_user.purchases_count%></td>
+        <td align="center"><%=(r=current_user.purchases.select('sum(amount) as sum').first.sum)?r:0%></td>
+        <td align="center"><%=current_user.credit_display%></td>
+        <td align="center"><%=current_user.credit_qingkuang%></td>
+        </tr>
+        
+  </tbody></table>
+												
+												
+											</td>
+								</tr>
+								
+							</tbody></table>
+							
+							
+</td>
+    <td class="infoBg5">&nbsp;</td>
+  </tr>
+  <tr class="infoBg2"> 
+    <td class="infoBg6">&nbsp;</td>
+    <td class="infoBg2">&nbsp;</td>
+    <td class="infoBg8">&nbsp;</td>
+  </tr>
+</tbody></table>
+</td>
+</tr>
+
+<tr> 
+  <td>    
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+  <tbody><tr class="infoBg2"> 
+    <td class="infoBg1">&nbsp;</td>
+    <td><table cellspacing="0" cellpadding="0" border="0">
+        <tbody><tr> 
+          <td class="legend">课件卖出获利明细</td>
+        </tr>
+      </tbody></table></td>
+    <td class="infoBg3">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td class="infoBg4">&nbsp;</td>
+    <td>
+
+									<table width="100%" cellspacing="0" cellpadding="0" border="0" class="titleTop2">
+					 <tbody><tr>
+					  <td class="pageAlign">
+					   <table width="100%" cellspacing="1" cellpadding="0" border="0" id="user" class="displayTag">
+					    <thead>
+							<tr>
+					<th width="20%" align="center" class="sortable">
+						发生时间
+					</th>
+					<th align="center" class="sortable">
+						课件
+					</th>
+					<th width="11%" align="center" class="sortable">
+						买家
+					</th>
+					<th width="11%" align="center" class="sortable">
+						卖家
+					</th>
+					<th width="20%"  align="center" class="sortable">
+						我的积分变化
+					</th>
+        </tr>
+        </thead>
+        <tbody>
+<%@sellings ||= []%>        
+<%@sellings.each do |purchase|%>
+						<tr onmouseover="this.className='evenfocus';" onmouseout="this.className='even';" class="even">
+							<td align="center">
+								<%=purchase.created_at.strftime("%Y-%m-%d %H:%M:%S")%>
+							</td>
+							<td align="center">
+								<%=link_to purchase.courseware.title,purchase.courseware%>
+							</td>
+							<td align="center">
+								<%=link_to purchase.user.ontology,"/yonghu/#{purchase.user_id}"%>
+							</td>
+							<% seller=purchase.courseware.user %>
+							<td align="center">
+								<%=link_to seller.ontology,"/yonghu/#{seller.id}"%>
+							</td>
+							<td align="center">
+								<% if seller.id == current_user.id %>
+									<span style="color:red"><%=purchase.amount%>↗</span>
+								<% else %>
+									<span style="color:green"><%=purchase.amount%>↘</span>
+								<% end %>
+							</td>
+						</tr>
+<%end%>
+        </tbody>
+         
+  </table>
+										
+									</td>
+								</tr>
+							</tbody></table>
+</td>
+    <td class="infoBg5">&nbsp;</td>
+  </tr>
+  <tr class="infoBg2"> 
+    <td class="infoBg6">&nbsp;</td>
+    <td class="infoBg2">&nbsp;</td>
+    <td class="infoBg8">&nbsp;</td>
+  </tr>
+</tbody></table>
+</td>
+</tr>
+    <tr> 
+        <td>    
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+  <tbody><tr class="infoBg2"> 
+    <td class="infoBg1">&nbsp;</td>
+    <td><table cellspacing="0" cellpadding="0" border="0">
+        <tbody><tr> 
+          <td class="legend">课件购买花销明细</td>
+        </tr>
+      </tbody></table></td>
+    <td class="infoBg3">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td class="infoBg4">&nbsp;</td>
+    <td>
+
+									<table width="100%" cellspacing="0" cellpadding="0" border="0" class="titleTop2">
+					 <tbody><tr>
+					  <td class="pageAlign">
+					   <table width="100%" cellspacing="1" cellpadding="0" border="0" id="user" class="displayTag">
+					    <thead>
+							<tr>
+					<th width="20%" align="center" class="sortable">
+						发生时间
+					</th>
+					<th align="center" class="sortable">
+						课件
+					</th>
+					<th width="11%" align="center" class="sortable">
+						买家
+					</th>
+					<th width="11%" align="center" class="sortable">
+						卖家
+					</th>
+					<th width="20%"  align="center" class="sortable">
+						我的积分变化
+					</th>
+        </tr>
+        </thead>
+        <tbody>
+<%@purchases ||= [] %>        
+<%@purchases.each do |purchase|%>
+						<tr onmouseover="this.className='evenfocus';" onmouseout="this.className='even';" class="even">
+							<td align="center">
+								<%=purchase.created_at.strftime("%Y-%m-%d %H:%M:%S")%>
+							</td>
+							<td align="center">
+								<%=link_to purchase.courseware.title,purchase.courseware%>
+							</td>
+							<td align="center">
+								<%=link_to purchase.user.ontology,"/yonghu/#{purchase.user_id}"%>
+							</td>
+							<% seller=purchase.courseware.user %>
+							<td align="center">
+								<%=link_to seller.ontology,"/yonghu/#{seller.id}"%>
+							</td>
+							<td align="center">
+								<% if seller.id == current_user.id %>
+									<span style="color:red"><%=purchase.amount%>↗</span>
+								<% else %>
+									<span style="color:green"><%=purchase.amount%>↘</span>
+								<% end %>
+							</td>
+						</tr>
+<%end%>
+        </tbody>
+        
+       
+  </table>
+									</td>
+								</tr>
+							</tbody></table>
+</td>
+    <td class="infoBg5">&nbsp;</td>
+  </tr>
+  <tr class="infoBg2"> 
+    <td class="infoBg6">&nbsp;</td>
+    <td class="infoBg2">&nbsp;</td>
+    <td class="infoBg8">&nbsp;</td>
+  </tr>
+</tbody></table>
+</td>
+</tr>
+
+</tbody></table>
+</td>
+</tr>
+</tbody></table>

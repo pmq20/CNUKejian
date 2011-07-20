@@ -1,0 +1,239 @@
+<script>
+var unbought = new Object;
+</script>
+<%courseware = @courseware%>
+	<div class="post">
+		<h3 class="title">
+<span style="float:left"><a href="/coursewares/<%=courseware.id%>">[<%=courseware.klass_name%>] <%=courseware.title%></a></span><span style="float:right">
+<% if user_signed_in? and (current_user.is_admin or courseware.user_id==current_user.id) %>
+<a href="/coursewares/<%=courseware.id%>/edit">编辑课件</a>
+<% end %>
+</span><br style="clear:both"></h3>
+		<div class="content">
+		<table cellspacing="0" cellpadding="0" width="100%">
+		<tr>
+		<td style="vertical-align:top">
+<p>
+<b>教师</b>：<%=courseware.teacher.name%>
+<br><b>学期</b>：<%=courseware.semester%>
+</p>
+<p>
+<%=(h courseware.description).gsub("\n", '<br/>')%>
+</p>
+<table cellspacing="0" cellpadding="0" width="100%" id="files_table">
+<tbody><tr>
+<th>序号</th>
+<th>文件名</th>
+<th>大小</th>
+</tr>
+<% assets = courseware.assets.order('id') %>
+<%if assets.empty?%>
+<tr><td colspan="3">
+	<span style="color:red">本课件没有文件，此课件将不会显示在课件列表</span>
+</td></tr>
+<%end %>
+<%if courseware.hidden%>
+	<span style="color:red">本课件还未通过审核，此课件将不会显示在课件列表</span>
+<%end%>
+<% i=0;assets.each do |ass|;i+=1;%>
+<tr <%if i%2==0%> class="even"<%end%>>
+<td><%=i%></td>
+<td>
+<a href="/assets/get/<%=ass.id%>/<%=ass.data_file_name%>" onclick="return please_buy_first(<%=courseware.id%>)"><img src="/images/icon/<%=Asset.filename2icon(ass.data_file_name)%>" style="padding-right:4px;display:block;float:left"></a>
+<a href="/assets/get/<%=ass.id%>/<%=ass.data_file_name%>?inline=1" target="blank" onclick="return please_buy_first(<%=courseware.id%>)"><%=ass.data_file_name%></a>
+<%=link_to_online_view(ass)%>
+</td>
+<td><%=ass.data_file_size_human%></td>
+</tr>
+<%if 'rar'==ass.data_file_name.split('.')[-1]%>
+	<%j=1;`unrar v #{ass.data.path}`.split("\n")[8..-3].each do |str|;j+=1%>
+	<%next unless 0==j%2 %>
+	<tr>
+	<td> 压缩包内容<%=j/2%></td>
+	<td style=""><img src="/images/icon/<%=Asset.filename2icon(str)%>" style="padding-left:10px;padding-right:4px;display:block;float:left"><%=str.strip%></td>
+	<td> - </td>
+	</tr>
+	<%end%>
+<%end%>
+<% end %>
+
+</tbody></table>
+		</td><td width="200" style="vertical-align:top">
+
+<div style="padding:0 5px">
+<p><%=link_to courseware.user.ontology,"/yonghu/#{courseware.user_id}" %></p>
+<%user=courseware.user%>
+<p>
+&nbsp;<img src="/images/avatars/<%=user.avatar%>" height="32" width="32">
+<br><img src="/images/pips<%=user.level%>.gif" border="0">
+<br>等级: <a href="/faq#li_2" style="color:#990000"><%=user.level_name%></a>
+<br>信息: 
+
+<%=render :partial=>'shared/user_info',:locals=>{:user=>user}%>
+
+
+<br>积分: <b><span id="user_<%=user.id%>_credit"><%=user.credit_display%></span> <%if user.credit<0%> (<%=user.credit_qingkuang%>)<%end%></b>
+<br>上传: <b><%=user.coursewares_count%></span></b> 篇
+</p>
+<p>
+<script>
+unbought[<%=courseware.id%>] = false;
+</script>
+<% if courseware.price>0 %>
+	本课件售价<span style="color:#000"><%=courseware.price%></span>积分<br>
+	<% if user_signed_in? and Purchase.where(courseware_id:courseware.id,user_id:current_user.id).count>0 %>
+		[ <span style="color:green">已购买</span> ]
+	<% elsif user_signed_in? and courseware.user_id==current_user.id%>
+		[ 已有<%=link_to courseware.purchases_count,'#',:onclick=>'window.parent.frames[1].eval("turn_to_history()");return false;'%>人购买 ]
+	<% else %>
+		[ <span id="purpan_<%=courseware.id%>">
+		<%= image_tag 'wait20.gif',:style=>'display:none',:id=>"spinningWheel_#{courseware.id}" %>
+		<%=link_to '立即购买',"/purchase/#{courseware.id}",:method=>:post,:remote=>true,:id=>"purchase_#{courseware.id}"%>
+		</span>
+		 ]
+		<script>
+			unbought[<%=courseware.id%>] = true;
+		</script>
+	<%end%>
+<% else %>
+本课件免费
+<% end %>
+<%= javascript_tag do %>
+  $("#purchase_<%=courseware.id%>").bind("ajax:beforeSend",  function(event,xhr, settings){
+    $("#spinningWheel_<%=courseware.id%>").toggle();
+    $("#purchase_<%=courseware.id%>").hide();
+	}).bind("ajax:complete", function(event, xhr, status){
+    $("#spinningWheel_<%=courseware.id%>").toggle();
+	}).bind("ajax:error", function(event, xhr, status, error) {
+		alert('购买失败，请重试');
+		$("#purchase_<%=courseware.id%>").show();
+  });
+<% end %>
+</p>
+</div>
+
+
+		</td>
+		</tr></table>
+			<div class="fixed"></div>
+		</div>
+
+		
+		<div class="meta">
+						<div class="act">
+<%= link_to '发表评论',"#respond" %>
+											</div>
+			<div class="info">
+				<%= courseware.created_at.strftime("%Y-%m-%d %H:%M:%S")%>			</div>
+						<div class="fixed"></div>
+
+		</div>
+	</div>
+
+<div class="block" id="whosbought">
+		<div class="content g">
+			<span class="next"><a href="#whosbought" onclick="$('#whosbought2').toggle()">谁购买了这个课件？(共<%= @courseware.purchases_count %>人)</a> »</span>
+			<div class="fixed"></div>
+			<p id="whosbought2" style="<%unless params[:whosbought]%>display:none;<%end%>text-align:right">
+			<%if @courseware.purchases.empty?%>
+			还没有人购买
+			<%end%>
+			<%@courseware.purchases.each do |pur|%>
+			<%=link_to pur.user.ontology,"/yonghu/#{pur.user_id}"%> 
+			<%end%>
+			</p>
+			<div class="fixed"></div>
+		</div>
+</div>
+
+<ol class="commentlist" id="replies">
+<%i=@courseware.replies.count+1;@courseware.replies.order('created_at DESC').each do |reply|;i-=1;%>
+<li class="comment" id="comment-<%=reply.id%>">
+			<div class="header regularheader">
+				<img width="24" height="24" class="avatar avatar-24 photo" src="/images/avatars/<%=reply.user.avatar%>" alt="">				<div class="author with_avatar">
+
+											<a title="<%=reply.user.ontology%>" href="/yonghu/<%=reply.user_id%>" id="commentauthor-<%=reply.user_id%>">
+<%=reply.user.ontology%>
+											</a>
+					
+				</div>
+				<div class="items">
+											<a onclick="" href="#respond">Reply</a> | 
+										<a onclick="" href="#respond">Quote</a>
+				</div>
+				<div class="date">
+					<%=reply.created_at.strftime("%Y-%m-%d %H:%M:%S")%>					 | <a href="#comment-<%=reply.id%>">#<%=i%></a>
+				</div>
+				<div class="fixed"></div>
+			</div>
+			<div id="commentbody-509" class="body">
+				<p><%=(h reply.body).gsub("\n", '<br/>')%></p>
+			</div>
+			<div class="fixed"></div>
+
+</li>
+<%end%>
+</ol>
+
+
+
+	
+
+
+
+<div id="respond">
+<%=form_for @reply,:url=>"/coursewares/#{@courseware.id}/replies#respond" do |f|%>
+		<div class="body">
+			<div class="header">
+				<h3 class="title">
+					发表评论				</h3>
+									<a style="display:none;" href="/?p=1#respond" id="cancel-comment-reply-link" rel="nofollow">Cancel reply</a>								<div class="fixed"></div>
+			</div>
+			<% if !@reply.errors.empty? %>
+			<div class="notice">
+							<strong style="color:red">错误:</strong> <%= @reply.errors.full_messages.join(', ') %>
+			</div>
+			<% else %>
+			<div class="notice">
+				<strong>提示:</strong> 您可以使用$\LaTeX$交流数学！	</div>
+			<% end %>
+<table width="100%"><tr><td width="555px">
+			<%=f.text_area :body,:rows=>8,:cols=>64,:class=>'textarea',:onkeyup=>'fanying()',:onclick=>'fanying()'%>
+			
+
+</td><td style="vertical-align:top">
+					预览									
+					<div id="author_info" style="overflow:auto;border:1px dashed #CCC;height:50px;padding:5px;margin:5px 0 10px 0">
+
+					
+					</div>
+
+
+				<div class="part">
+					<input type="submit" value="Submit Comment" tabindex="5" class="button" id="submit" name="submit">
+					<input type="hidden" value="1" name="comment_post_ID">
+				</div>
+
+				<div class="feed">谢谢您的评论！</div>
+</td></tr></table>
+			<div class="fixed"></div>
+		</div>
+<%end%>
+</div>
+
+<script>
+  var the_target=document.getElementById('author_info');
+  var the_from = document.getElementById('reply_body');
+  var MathOutput = $('#MathOutput');
+  var MathOutputSpan = $('#MathOutputSpan');
+function fanying(){
+	neirong=the_from.value;
+	if(neirong==''){
+		return false;
+	}else{
+		the_target.innerHTML = neirong.split('<').join('&lt;').split('>').join('&gt;').split('\n').join('<br>');
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub, the_target]);
+		return true;
+	}
+}
+</script>

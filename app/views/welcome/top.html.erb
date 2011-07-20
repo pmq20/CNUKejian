@@ -1,0 +1,102 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<%= stylesheet_link_tag 'top.css' %>
+<%= javascript_include_tag 'top.js' %>
+<%= stylesheet_link_tag 'jquery-ui-1.8.13.custom.css' %>
+<%= javascript_include_tag '/javascripts/jquery.min.js' %>
+<%= javascript_include_tag '/javascripts/rails.js' %>
+<%= javascript_include_tag '/javascripts/application.js' %>
+
+
+<%= javascript_include_tag 'jquery-ui-1.8.13.custom.min.js'%>
+<%= csrf_meta_tag %>
+</head>
+<body>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="topbg">
+<form name="mainForm" method="post">
+  <tr>
+    <td width="11%"><a href="/" target="_parent"><img src="/images/logo.jpg" style="margin:0 25px 0 15px" /></a></td>
+    <td width="89%" valign="bottom" >
+
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr align="right">
+        <td>
+		<table border="0" align="right" cellpadding="0" cellspacing="0" class="leftuser01">
+          <tr>
+            <td nowrap>&nbsp;
+            欢迎光临
+            <%if user_signed_in?%>
+	            <%= link_to current_user.ontology,'/cpan/profile',:target=>'mainFrame',:onclick=>"window.parent.frames[1].eval('select(document.getElementById(\"cpan_profile\"))')" %> (积分: <%=link_to current_user.credit_display,'/cpan/history',:target=>'mainFrame',:id=>'jifen'%>) | <%= link_to '注销',destroy_user_session_path,:target=>'_parent' %>
+            <%else%>
+	            <%= link_to '登录','/users/sign_in',:id=>'login_link',:target=>'mainFrame' %> | <%= link_to '注册','/users/sign_up',:id=>'reg_link',:target=>'mainFrame' %>
+<script>
+$( "#login_link" ).click(function() {
+	parent.parent.document.title = "CNU课件交流系统" + " - " + "登录";
+	return true;
+});
+$( "#reg_link" ).click(function() {
+	parent.parent.document.title = "CNU课件交流系统" + " - " + "注册";
+	return true;
+});
+</script>
+            <%end%>
+            </td>
+          </tr>
+        </table>
+		</td>
+      </tr>
+      <tr>
+        <td>
+		
+		<!--button bgein -->
+
+		<table border="0" cellspacing="0" cellpadding="0" width="100%">
+			<tr>
+				<td>
+		<table border="0" cellspacing="0" cellpadding="0" id="moduleTab">
+          <tr >
+            <td class="bg1" id="td_1">
+            <A id="tab1" title="纵览最新课件最热资源！" href="#"  onclick="changeModule(1);">
+							  纵览
+							  </A>
+
+            </td>
+            <td class="btn2" id="td_2">
+            <A id="tab2" title="下载各专业各科各老师最全课件！" href="#"  onclick="changeModule(2)">
+							  下载
+							  </A>
+            </td>
+            <td class="btn3" id="td_3">
+            <A id="tab3" title="上传分享我的课件赢取积分！" href="#"  onclick="changeModule(3)">
+							  上传
+							  </A>
+
+            </td>
+          </tr>
+        </table>
+        
+        	</td>
+
+        </tr>
+       </table>
+		<!--button end -->
+		</td>
+
+      </tr>
+    </table>
+	</td>
+  </tr>
+</table>
+
+<!-- line begin -->
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="bg-line1" id="topMenu3" >
+  <tr>
+    <td></td>
+  </tr>
+
+</table>
+<!-- line end -->
+
+
+</body>

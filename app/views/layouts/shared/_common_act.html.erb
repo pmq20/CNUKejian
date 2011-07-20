@@ -1,0 +1,15 @@
+<script>
+<% if  notice and (notice.starts_with?('登录成功') or
+									 notice.starts_with?('用户信息成功更新') or 
+									 notice.starts_with?('您的帐号已成功注册')) %>
+
+window.parent.frames[0].location.reload();
+window.parent.frames[1].location.reload();
+
+<% elsif user_signed_in? %>
+if ( window.parent.frames[0].document.readyState == 'complete' ) {
+window.parent.frames[0].eval("$('#jifen').html('<%=escape_javascript current_user.credit_display%>')");
+}
+<% end %>
+
+</script>

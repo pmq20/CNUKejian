@@ -1,0 +1,31 @@
+<%= stylesheet_link_tag 'updowngo' %>
+<div id="divCoHome" style="overflow:auto;height:650;margin-top:15px;margin-bottom:5px" width="100%">
+<p style="text-align:center">
+<%=image_tag "upload-logo.jpg" %>
+
+</p>
+</div>
+
+
+<center>
+<% form_tag '/welcome/upload_go',:onsubmit=>'if(""==$("#the_q").val()||"请输入课程名/教师名/拼音"==$("#the_q").val()){return false;}else{return true;}'  do %>
+<input type="hidden" value="0" name="selected_weizhi" id="hidden_weizhi_field">
+<table cellspacing="0" cellpadding="0"><tbody><tr valign="top"><td width="25%">&nbsp;</td><td align="center" nowrap=""><input type="hidden" value="zh-CN" name="hl"><input type="hidden" value="hp" name="source"><input type="hidden" name="biw" value="939"><input type="hidden" name="bih" value="231"><div style="height:32px;margin-bottom:10px" class="ds"><input id="the_q" style="background: none repeat scroll 0% 0% rgb(255, 255, 255); border-width: 1px; border-style: solid; border-color: rgb(204, 204, 204) rgb(153, 153, 153) rgb(153, 153, 153) rgb(204, 204, 204); -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; -moz-border-image: none; color: rgb(0, 0, 0); font: 18px arial,sans-serif bold; margin: 0pt; padding: 5px 8px 0pt 6px; vertical-align: top; outline: medium none;color:#CCC" size="57" value="请输入课程名/教师名/拼音" onclick="if(!this.alreadygot){this.style.color='#000';this.value='';this.alreadygot=true}" title="" class="lst" name="q" maxlength="2048"></div><br style="line-height:0">
+<center>
+<span class="ds" style="width:140px"><span class="lsbb"><input type="submit" class="lsb" style="width:138px" value="&nbsp;进入课程上传页&nbsp;" name="btnG"></span></span>
+</center>
+</td><td align="left" width="25%" nowrap="" class="fl sblc"></td></tr></tbody></table>
+<% end %>
+</center>
+
+
+<script>
+$(function() {
+		$( "#the_q" ).autocomplete({
+			source: "/welcome/autocomplete_course_name"
+		});
+		jQuery('#the_q').bind( "input.autocomplete", function(){
+           $(this).trigger('keydown.autocomplete');
+		});
+});
+</script>

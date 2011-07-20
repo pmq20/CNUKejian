@@ -1,0 +1,171 @@
+<%= form_for(@courseware,:html=>{multipart:true}) do |f| %>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" class="fieldsettop">
+    <tbody>
+    <tr> 
+        <td>    
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+  <tbody><tr class="infoBg2"> 
+    <td class="infoBg1">&nbsp;</td>
+    <td><table cellspacing="0" cellpadding="0" border="0">
+        <tbody><tr> 
+          <td class="legend"></td>
+        </tr>
+      </tbody></table></td>
+    <td class="infoBg3">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td class="infoBg4">&nbsp;</td>
+    <td>
+
+							<table width="100%" cellspacing="0" cellpadding="0" border="0" class="titleTop3">
+								<tbody><tr> 
+									<td width="500px">
+
+
+
+
+										<table cellspacing="0" cellpadding="0" border="0" id="tblView">
+
+
+
+<tbody>
+<% if @courseware.user_id!=current_user.id %>
+<tr>
+	<td colspan="5" style="color:red">注意：这不是您的课件，请小心编辑</td>
+</tr>
+<% end%>
+<tr>
+<td width="25%" height="25" class="fieldName">教师:&nbsp;</td>
+<td width="75%"><%=f.select :teacher_id,@teachers + [['其他：',-1]], { :include_blank => false },{:onchange=>'if(-1==this.value){$("#courseware_other_teacher_name").show()}else{$("#courseware_other_teacher_name").hide()}'} %>
+<% style='display:none'%>
+<% style='' if -1==@courseware.teacher_id or @courseware.course.teachers.empty?%>
+<%=f.text_field :other_teacher_name,:size=>10,:style=>style %>
+
+of 
+<%=@courseware.course.name%>
+<%=f.hidden_field :course_id%>
+</td>
+
+</tr>
+
+
+<tr>
+<td width="25%" height="25" class="fieldName">课件学期:&nbsp;</td>
+<td width="75%">
+<%=f.select :semester,Courseware.possible_semesters.collect {|p| [ p, p ] }, { :include_blank => false } %>
+</td>
+</tr>
+
+
+
+
+
+<tr>
+<td width="25%" height="25" class="fieldName">课件标题:&nbsp;</td>
+<td width="75%"><%=f.select :klass,Courseware::KLASSES.to_a.collect{|p| [p[1],p[0]]},{:include_blank=>false} %> <%= f.text_field :title %></td>
+
+</tr>
+
+<tr>
+<td width="25%" height="25" class="fieldName">定价:&nbsp;</td>
+<td width="75%">
+<%= f.select :price,[3.0,2.9,2.8,2.7,2.6,2.5,2.4,2.3,2.2,2.1,2.0,1.9,1.8,1.7,1.6,1.5,1.4,1.3,1.2,1.1,1.0,0.9,0.8,0.7,0.6,0.5,0.4,0.3,0.2,0.1].collect{|p| [p,p]}+[['免费',0.0]],{:selected=>sprintf("%.1f",@courseware.price)} %>
+</td>
+
+</tr>
+<tr>
+<td width="25%" height="25" class="fieldName">已有文件:</td>
+<td width="75%"><a href="#" onclick="add_more_files()"></a>(共<%=@courseware.assets.count%>个文件)</td>
+
+</tr>
+<%= render :partial => "attachment", :collection => @courseware.assets %>
+
+<tr>
+<td width="25%" height="25" class="fieldName" style="vertical-align:top">增加文件:&nbsp;</td>
+<td width="75%">
+<table cellspacing="0" cellpadding="0" border="0" width="100%" id="here_to_add">
+<tr><td>
+<input type="file" name="courseware[assets_attributes][0][data]" id="courseware_assets_attributes_0_data">
+<td></tr>
+</table>
+</td>
+
+</tr>
+
+<script>
+var now_num = 0;
+function add_more_files(){
+	now_num += 1;
+	if(now_num<10){
+		$('#here_to_add').append('<tr><td><input type="file" name="courseware[assets_attributes]['+now_num+'][data]" id="courseware_assets_attributes_'+now_num+'_data"></td></tr>'+"\n");
+	}	else{
+			alert('为提高成功率请勿一次上传过多，最好先提交课件然后再于修改页内补充文件\n若文件太多，上传压缩包也是不错的idea哦');
+		}
+}
+</script>
+<tr>
+<td width="25%" height="25" class="fieldName"></td>
+<td width="75%"><a href="#gengduowenjian" onclick="add_more_files()" id="gengduowenjian">+ 更多文件</a></td>
+
+</tr>
+
+
+
+
+<tr>
+<td width="25%" height="25" class="fieldName" style="vertical-align:top">描述:&nbsp;</td>
+<td width="75%"><%= f.text_area :description,:style=>'width:360px;height:160px'%></td>
+
+</tr>
+
+<%if current_user.is_admin%>
+<tr>
+<td width="25%" height="25" class="fieldName" style="vertical-align:top">精华等级:&nbsp;</td>
+<td width="75%"><%= f.select :quintessence,{"0"=>"0",'1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5'}%> 精华等级只有管理员可修改，高等级可使本课件显示在首页</td>
+
+</tr>
+<%end%>
+
+
+
+
+												<tr><td>
+													&nbsp;
+												</td>
+												<td align="center" style="padding-top:10px">
+	     <%=f.submit '编辑课件'%> <%=link_to '删除这个课件',@courseware,:method=>:delete,:confirm=>'确认删除这个课件及其所有关联的文件吗？这个操作不可撤销，请三思。' if Time.now - @courseware.created_at <= 3600*24 or current_user.is_admin%>
+												</td></tr>
+										</tbody></table>
+										
+										
+									</td>
+<td style="vertical-align:top">
+
+</td>
+								</tr>
+							</tbody></table>
+</td>
+    <td class="infoBg5">&nbsp;</td>
+  </tr>
+  <tr class="infoBg2"> 
+    <td class="infoBg6">&nbsp;</td>
+    <td class="infoBg2">&nbsp;</td>
+    <td class="infoBg8">&nbsp;</td>
+  </tr>
+</tbody></table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</td></tr></tbody></table>
+<% end %>

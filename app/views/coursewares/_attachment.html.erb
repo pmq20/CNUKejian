@@ -1,0 +1,14 @@
+<% if !attachment.id.nil? %>
+<tr id="attachment_<%=attachment.id %>">
+<td width="25%" height="25" class="fieldName"></td>
+<td>
+<a href="/assets/get/<%=attachment.id%>/<%=attachment.data_file_name%>"><img src="/images/icon/<%=Asset.filename2icon(attachment.data_file_name)%>" style="padding-right:4px;display:block;float:left;border:0"></a>
+<a href="/assets/get/<%=attachment.id%>/<%=attachment.data_file_name%>?inline=1" target="blank"><%=attachment.data_file_name%></a> (<%=attachment.data_file_size_human%>)
+
+	<%= link_to "删除", attachment, :method => :delete, :remote=>true,:confirm => "确认删除'#{attachment.data_file_name}'吗?此操作不可恢复" %>
+</td>
+
+
+
+</tr>
+<% end %>

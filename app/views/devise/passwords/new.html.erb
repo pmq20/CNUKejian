@@ -1,0 +1,42 @@
+<style type="text/css">
+.td2 {
+		padding:5px;
+    background-color: #F5F6F7;
+    font-size:15px;
+    line-height: 135%;
+    color: #212063;
+    font-size: 15px
+    font-weight: normal;
+    text-align: left;
+}
+input{
+font-size: 15px;
+}
+</style>
+
+<center style="margin-top:20px">
+
+
+
+<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+<table cellspacing="2" cellpadding="6" border="0"> 
+ <tbody><tr> 
+  <td nowrap="" class="td2">邮箱地址:</td> 
+  <td class="td2"> 
+    <%= f.text_field :email,:style=>"width:250px" %>
+  </td> 
+ </tr> 
+ <tr> 
+  <td> 
+   <input type="hidden" value="CNU50" name="bor_library"> 
+  </td> 
+ </tr> 
+ <tr> 
+  <td align="center" colspan="2" style="padding-top:13px"> 
+      <input type="submit" value="发送密码重置邮件">
+  </td> 
+ </tr> 
+</tbody></table> 
+<% end %>
+</center>
+

@@ -1,0 +1,195 @@
+<script>
+var unbought = new Object;
+</script>
+
+<%if @course.hidden%>
+<div class="post">
+	<div class="content">
+<p>
+	<span style="color:red">本页面还未通过审核，此页面将不会显示在自定义页面列表. 但您已可以开始上传资源.</span>
+</p>
+</div>
+</div>
+<%end%>
+
+<% if @coursewares.empty? %>
+<div class="post">
+		
+<div class="content">
+			<p style="text-align:center;line-height:50px">暂无资源		</p>
+			<div class="fixed"></div>
+		</div>
+
+		
+		
+	</div>
+<% end %>
+
+<% @coursewares.each do |courseware|%>
+	<div class="post">
+		<h3 class="title">
+<span style="float:left"><a href="/coursewares/<%=courseware.id%>">[<%=courseware.klass_name%>] <%=courseware.title%></a></span><span style="float:right">
+<% if user_signed_in? and (current_user.is_admin or courseware.user_id==current_user.id) %>
+<a href="/coursewares/<%=courseware.id%>/edit">编辑课件</a>
+<% end %>
+</span><br style="clear:both"></h3>
+
+		<div class="content">
+		<table cellspacing="0" cellpadding="0" width="100%">
+		<tr>
+		<td style="vertical-align:top">
+<p>
+<b>教师</b>：<%=courseware.teacher.name%>
+<br><b>学期</b>：<%=courseware.semester%>
+</p>
+<p>
+<%=(h courseware.description).gsub("\n", '<br/>')%>
+</p>
+<table cellspacing="0" cellpadding="0" width="100%" id="files_table">
+<tbody><tr>
+<th>序号</th>
+<th>文件名</th>
+<th>大小</th>
+</tr>
+<% assets = courseware.assets.order('id') %>
+<% i=0;assets.limit(2).each do |ass|;i+=1;%>
+<tr <%if i%2==0%> class="even"<%end%>>
+<td><%=i%></td>
+<td>
+<a href="/assets/get/<%=ass.id%>/<%=ass.data_file_name%>" onclick="return please_buy_first(<%=courseware.id%>)"><img src="/images/icon/<%=Asset.filename2icon(ass.data_file_name)%>" style="padding-right:4px;display:block;float:left"></a>
+<a href="/assets/get/<%=ass.id%>/<%=ass.data_file_name%>" onclick="return please_buy_first(<%=courseware.id%>)"><%=ass.data_file_name%></a>
+<%=link_to_online_view(ass)%>
+</td>
+<td><%=ass.data_file_size_human%></td>
+</tr>
+<%if 'rar'==ass.data_file_name.split('.')[-1]%>
+	<%j=1;`unrar v #{ass.data.path}`.split("\n")[8..-3].each do |str|;j+=1%>
+		<%next unless 0==j%2 %>
+		<%if j>4%>
+		<tr>
+		<td>压缩包内容
+		<a href="/coursewares/<%=courseware.id%>#files_table"> ……</a>
+		</td>
+			<td>
+		<a href="/coursewares/<%=courseware.id%>#files_table"><span style="padding-left:10px">……</span></a>
+		</td>
+			<td>
+		<a href="/coursewares/<%=courseware.id%>#files_table"> - </a>
+		</td>
+		</tr>
+		<%break%>
+		<%end%>
+		<tr>
+		<td> 压缩包内容<%=j/2%></td>
+		<td style=""><img src="/images/icon/<%=Asset.filename2icon(str)%>" style="padding-left:10px;padding-right:4px;display:block;float:left"><%=str.strip%></td>
+		<td> - </td>
+		</tr>
+	<%end%>
+<%end%>
+
+
+<% end %>
+<% if assets.count > 2 %>
+	<% unless assets.count == 3 %>
+	<tr>
+	<td>
+	<a href="/coursewares/<%=courseware.id%>#files_table">……</a>
+	</td>
+		<td>
+	<a href="/coursewares/<%=courseware.id%>#files_table">……</a>
+	</td>
+		<td>
+	<a href="/coursewares/<%=courseware.id%>#files_table">……</a>
+	</td>
+	</tr>
+	<% end %>
+<%ass = assets.all[-1];i=assets.count %>
+<tr <%if i%2==0%> class="even"<%end%>>
+<td><%=i%></td>
+<td>
+<a href="/assets/get/<%=ass.id%>/<%=ass.data_file_name%>" onclick="return please_buy_first(<%=courseware.id%>)"><img src="/images/icon/<%=Asset.filename2icon(ass.data_file_name)%>" style="padding-right:4px;display:block;float:left"></a>
+<a href="/assets/get/<%=ass.id%>/<%=ass.data_file_name%>" onclick="return please_buy_first(<%=courseware.id%>)"><%=ass.data_file_name%></a>
+<%=link_to_online_view(ass)%>
+</td>
+<td><%=ass.data_file_size_human%></td>
+</tr>
+
+<% end %>
+</tbody></table>
+		</td><td width="200" style="vertical-align:top">
+
+<div style="padding:0 5px">
+<p><%=link_to courseware.user.ontology,"/yonghu/#{courseware.user_id}" %></p>
+<%user=courseware.user%>
+<p>
+&nbsp;<img src="/images/avatars/<%=user.avatar%>" height="32" width="32">
+<br><img src="/images/pips<%=user.level%>.gif" border="0">
+<br>等级: <a href="/faq#li_2" style="color:#990000"><%=user.level_name%></a>
+<br>信息: 
+
+<%=render :partial=>'shared/user_info',:locals=>{:user=>user}%>
+
+
+<br>积分: <b><span id="user_<%=user.id%>_credit"><%=user.credit_display%></span> <%if user.credit<0%> (<%=user.credit_qingkuang%>)<%end%></b>
+<br>上传: <b><%=user.coursewares_count%></span></b> 篇
+</p>
+<p>
+<script>
+unbought[<%=courseware.id%>] = false;
+</script>
+<% if courseware.price>0 %>
+	本课件售价<span style="color:#000"><%=courseware.price%></span>积分<br>
+	<% if user_signed_in? and Purchase.where(courseware_id:courseware.id,user_id:current_user.id).count>0 %>
+		[ <span style="color:green">已购买</span> ]
+	<% elsif user_signed_in? and courseware.user_id==current_user.id%>
+		[ 已有<%=link_to courseware.purchases_count,'#',:onclick=>'window.parent.frames[1].eval("turn_to_history()");return false;'%>人购买 ]
+	<% else %>
+		[ <span id="purpan_<%=courseware.id%>">
+		<%= image_tag 'wait20.gif',:style=>'display:none',:id=>"spinningWheel_#{courseware.id}" %>
+		<%=link_to '立即购买',"/purchase/#{courseware.id}",:method=>:post,:remote=>true,:id=>"purchase_#{courseware.id}"%>
+		</span>
+		 ]
+		<script>
+			unbought[<%=courseware.id%>] = true;
+		</script>
+	<%end%>
+<% else %>
+本课件免费
+<% end %>
+<%= javascript_tag do %>
+  $("#purchase_<%=courseware.id%>").bind("ajax:beforeSend",  function(event,xhr, settings){
+    $("#spinningWheel_<%=courseware.id%>").toggle();
+    $("#purchase_<%=courseware.id%>").hide();
+	}).bind("ajax:complete", function(event, xhr, status){
+    $("#spinningWheel_<%=courseware.id%>").toggle();
+	}).bind("ajax:error", function(event, xhr, status, error) {
+		alert('购买失败，请重试');
+		$("#purchase_<%=courseware.id%>").show();
+  });
+<% end %>
+</p>
+</div>
+
+
+		</td>
+		</tr></table>
+			<div class="fixed"></div>
+		</div>
+
+		
+		<div class="meta">
+						<div class="act">
+<%= link_to '销量',"/coursewares/#{courseware.id}#whosbought" %>
+(<%= link_to courseware.purchases.count,"/coursewares/#{courseware.id}#whosbought" %>)
+							|
+<%= link_to '发表评论',"/coursewares/#{courseware.id}#respond" %>
+(<%= link_to courseware.replies.count,"/coursewares/#{courseware.id}#replies" %>)
+											</div>
+			<div class="info">
+				<%= courseware.created_at.strftime("%Y-%m-%d %H:%M:%S")%>			</div>
+						<div class="fixed"></div>
+
+		</div>
+	</div>
+<%end%>
+

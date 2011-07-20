@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+	<title>CNU课件交流系统 - 课程页面</title>
+	<!-- style START -->
+	<%= stylesheet_link_tag 'courses' %>
+	<!--[if IE]>
+		<link rel="stylesheet" href="/stylesheets/courses_ie.css" type="text/css" media="screen" />
+	<![endif]-->
+	<!-- style END -->
+	<%= stylesheet_link_tag 'jquery-ui-1.8.13.custom.css' %>
+	<%= javascript_include_tag '/javascripts/jquery.min.js' %>
+	<%= javascript_include_tag '/javascripts/rails.js' %>
+	<%= javascript_include_tag '/javascripts/application.js' %>
+	<%= javascript_include_tag 'jquery-ui-1.8.13.custom.min.js'%>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+            inlineMath: [ ['$','$'] ],
+	          processEscapes: true
+	}
+});
+</script>
+
+<%= mathjax_tag %>
+
+	<%= csrf_meta_tag %>
+	<script type="text/javascript" src="/jwplayer/jwplayer.js"></script>
+	<script>
+		if(0==parent.frames.length){
+			window.location.href = '/?main='+'<%=j request.request_uri%>'
+		}
+	</script>
+</head>
+
+<body>
+	<%=render :partial=>'layouts/shared/common_act'%>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" align="center">
+				<tbody><tr>
+				   <td class="Linetop"></td>
+				</tr>
+</tbody></table>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" id="tblHead" class="former_title">
+		<tbody><tr>
+			<td>
+				<table cellspacing="0" cellpadding="0" border="0" align="left">					
+				<tbody><tr>
+				<td>&nbsp;</td>
+				<td valign="middle" id="yemian_title"><b>
+					<%=@course.name%>
+					<script charset="utf-8" type="text/javascript">
+					window.parent.document.title = 'CNU课件交流系统 - <%=@course.name%>';
+					window.parent.frames[1].eval("update_history(\"<%=@course.id%>\",\"<%=@course.name%>\",1)");
+					</script>
+				</b></td>
+				</tr>
+				</tbody></table>
+			</td>				
+		</tr>		
+</tbody></table>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" align="center">
+	<tbody><tr>
+		<td class="Linetop"></td>
+	</tr>
+</tbody></table>
+
+
+
+
+
+
+<% coursepath = "/courses/#{@course.id}" %>
+<script>
+function please_buy_first(id){
+	if(unbought[id]){
+		alert('请先点击右侧栏的 [ 立即购买 ] 链接购买课件，这会花去您的微量积分，但对上传者是一种鼓励。\n购买后可下载此课件的全部文件。');
+		return false;
+	}else{
+		return true;
+	}
+}
+</script>
+
+
+
+<!-- container START -->
+<div id="container">
+
+	<!-- header START -->
+	<div id="header">
+		<div class="content">
+			<div id="title">
+
+				<h1><a href="<%=coursepath%>"><%=@course.name%></a></h1>
+				<div id="tagline">
+					<% if params[:teacher_id] %>
+					   <a href="<%=coursepath%>">全部老师</a>
+					<% else %>
+					   全部老师
+					<% end %>
+					<% sum=@course.teachers.count;i=0;@course.teachers.each do |teacher| i+=1%>
+						 <%= ' | ' %>
+						 <% if params[:teacher_id]==teacher.id.to_s %>
+						   <%= teacher.name %>
+						 <% else %>
+							 <%= link_to teacher.name,"/teachers/#{teacher.id}/courses/#{@course.id}" %>
+						 <% end %>
+					<% end %>
+				</div>
+			</div>
+
+
+			<div class="fixed"></div>
+		</div>
+<% coursepath = "/teachers/#{params[:teacher_id]}/courses/#{@course.id}" if params[:teacher_id] %>
+		<div class="meta">
+			<ul id="menubar">
+				<li class="<%=(!params[:klass])?'current_page_item':'page_item page-item-2'%>"><a href="<%=coursepath%>">全部课件</a></li>
+<% Courseware::KLASSES.each do |key,value| %>
+				<li class="<%=(key.to_s==params[:klass])?'current_page_item':'page_item page-item-2'%>"><a href="<%=coursepath+"?klass=#{key}"%>" title="只显示<%=value%>"><%=value%></a></li>
+<% end %>
+			</ul>
+			<div id="subscribe" class="feed">
+				<a class="feedlink" href="/coursewares/new?course_id=<%= @course.id %><%="&teacher_id=#{params[:teacher_id]}" if params[:teacher_id]%>">上传课件</a>
+							</div>
+									<span id="copyright">　</span>
+
+			<div class="fixed"></div>
+		</div>
+	</div>
+	<!-- header END -->
+
+
+
+	<!-- content START -->
+	<div id="content">
+
+		<!-- main START -->
+		<div id="main">
+
+
+<%=yield%>
+
+
+
+		</div>
+		<!-- main END -->
+
+		
+
+		<div class="fixed"></div>
+	</div>
+	<!-- content END -->
+
+
+
+
+
+	<!-- footer START -->
+	<div id="footer">
+		<div class="content">
+			<span id="about">
+				首师大课件交流系统 <%=Time.now.strftime("%Y-%m-%d %H:%M:%S")%>
+			</span>
+
+			<a id="gotop" href="#">Top</a>
+			<div class="fixed"></div>
+		</div>
+	</div>
+	<!-- footer END -->
+
+</div>
+<!-- container END -->
+
+</body>
+
+</html>
+

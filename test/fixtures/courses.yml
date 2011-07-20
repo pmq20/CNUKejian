@@ -1,0 +1,27 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  institute_id: 1
+  number: MyString
+  name: MyString
+  eng_name: MyString
+  ben_yan: MyString
+  credit: 1.5
+  credit_hours: 1.5
+  jiaoxuefs: MyString
+  kechengshuoming: MyText
+  neirongjianjie: MyText
+  how_to_judge: MyText
+
+two:
+  institute_id: 1
+  number: MyString
+  name: MyString
+  eng_name: MyString
+  ben_yan: MyString
+  credit: 1.5
+  credit_hours: 1.5
+  jiaoxuefs: MyString
+  kechengshuoming: MyText
+  neirongjianjie: MyText
+  how_to_judge: MyText

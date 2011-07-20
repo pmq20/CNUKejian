@@ -1,0 +1,80 @@
+
+
+<table width="100%" cellspacing="0" cellpadding="0" border="0" class="fieldsettop">
+    <tbody><tr> 
+        <td>    
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+  <tbody><tr class="infoBg2"> 
+    <td class="infoBg1">&nbsp;</td>
+    <td><table cellspacing="0" cellpadding="0" border="0">
+        <tbody><tr> 
+          <td class="legend">最新自定义页面 [<a href="/faq#li_6">?</a>]</td>
+        </tr>
+      </tbody></table></td>
+    <td class="infoBg3">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td class="infoBg4">&nbsp;</td>
+    <td>
+
+	<table width="100%" cellspacing="0" cellpadding="0" border="0" class="titleTop2">
+		<tbody><tr>
+		 <td class="pageAlign">
+			<table width="100%" cellspacing="1" cellpadding="0" border="0" class="displayTag" id="user">
+			<thead>
+			<tr>
+        	<th width="5%" align="center" class="sortable">建立者</th>
+        	<th width="20%" align="center" class="sortable">建立时间</th>
+        	<th align="center" class="sortable">名字</th>
+        	<th width="10%" align="center" class="sortable">课件数</th>
+        </tr>
+        </thead>
+        <tbody>
+
+
+
+
+
+
+
+
+
+       <%@courses.each do |c|%>
+              <%u = c.user%>
+        <tr class="even" onmouseout="this.className='even';" onmouseover="this.className='evenfocus';">
+        <td align="center" style="padding-top:6px">
+        				<img src="/images/avatars/<%=u.avatar%>"><br>
+<%= link_to (u.ontology),"/yonghu/#{u.id}" %>
+        </td>
+
+        <td align="center"><%=c.created_at.strftime("%Y-%m-%d %H:%M:%S")%><br>始于<%=gap(c.created_at)%>以前</td>
+        <td align="center"><%=link_to c.name,c%></td>
+        <td align="center"><%=c.coursewares_count%>个课件</td>
+				</td>
+        </tr>
+				<%end%>        
+  </tbody></table>
+												
+												
+											</td>
+								</tr>
+								
+							</tbody></table>
+							
+							
+</td>
+    <td class="infoBg5">&nbsp;</td>
+  </tr>
+  <tr class="infoBg2"> 
+    <td class="infoBg6">&nbsp;</td>
+    <td class="infoBg2">&nbsp;</td>
+    <td class="infoBg8">&nbsp;</td>
+  </tr>
+</tbody></table>
+</td>
+</tr>
+
+
+    
+
+</tbody></table>

@@ -1,0 +1,53 @@
+<style type="text/css">
+.td2 {
+		padding:10px;
+    background-color: #F5F6F7;
+    font-size:15px;
+    line-height: 135%;
+    color: #212063;
+    font-size: 15px
+    font-weight: normal;
+    text-align: left;
+}
+.td2:hover{
+    background-color: #6292E4;
+}
+input{
+font-size: 15px;
+}
+.ava_selected{
+	background-color:#6292E4;
+}
+</style>
+<center style="margin-top:20px">
+<p>请选择头像，然后点击页面底部的“更改头像”按钮</p>
+<%= form_tag do %>
+<table cellspacing="2" cellpadding="6" border="0"> 
+ <tbody>
+ 
+		<% i=0;@files.each do |f| %>
+		<% if i%10==0 %> <tr> <% end %>
+			<td  class="td2" onclick="sel_avatar(this)" id="<%=File.basename(f)%>"><img src="/images/avatars/<%=File.basename(f)%>" /></td>
+		<% if i%10==9 %> </tr> <%end%>
+		<% i+=1;end%>
+		
+		<tr> 
+		<td align="center" style="padding-top:13px;padding-bottom:20px" colspan="20"> 
+		    <input type="submit" value="更改头像">
+<input type="hidden" name="avatar" id="ava_that_matters" value="<%=current_user.avatar%>">
+		</td> 
+    </tr>
+</tbody></table> 
+<% end %>
+</center>
+<script>
+var current = document.getElementById('<%=current_user.avatar%>');
+$(current).addClass('ava_selected');
+function sel_avatar(obj){
+	$(obj).toggleClass('ava_selected');
+	$(current).toggleClass('ava_selected');
+	current = obj;
+	$('#ava_that_matters').val(current.id);
+}
+</script>
+

@@ -1,0 +1,15 @@
+<%if user.online%>
+<img src="/images/online1.gif" alt="该用户目前在线" title="该用户目前在线" align="absmiddle" width="15">
+<%else%>
+<img src="/images/offline1.gif" alt="该用户目前不在线" title="该用户目前不在线" align="absmiddle" width="15">
+<%end%>
+<%if user.xb%>
+	<% if '男'==user.xb %>
+		<img src="/images/mal.gif" alt="帅哥" title="帅哥" align="absmiddle" width="20">
+	<% elsif '女'==user.xb %>
+		<img src="/images/fem.gif" alt="美女" title="美女" align="absmiddle" width="20">
+	<%end%>
+<%end%>
+<%if user.institute%>
+<a href="/faq#li_1"><img src="/images/ins_icon/<%=user.institute.icon%>" alt="<%=user.institute.name%>" title="<%=user.institute.name%>" align="absmiddle" height="15"></a>
+<%end%>

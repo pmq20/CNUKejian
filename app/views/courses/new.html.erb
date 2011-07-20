@@ -1,0 +1,27 @@
+
+
+
+<% form_for @course do |f| %>		
+<div class="post">
+
+<div class="content">
+			<p style="text-align:center;line-height:50px;font-size:16px">“<%= @course.name %>”还未建立<br>
+<%= f.hidden_field :name %>			
+	
+				请[ <%= f.submit '点击这里' %> ]建立这个课程页面<br><br>
+				<% courses = Course.where('qcache2 like ? or qcache1 like ?','%'+@course.name+'%','%'+@course.name+'%').order('teachings_count+coursewares_count DESC').limit(5) %>
+				<% unless courses.empty? %>
+								您要找的是不是：<br>
+				<% end %>
+				<% courses.each do |c|%>
+				<%= link_to c.name,c %><br>
+				<%end%>
+			</p>
+			
+			<div class="fixed"></div>
+		</div>
+
+		
+		
+</div>
+<% end %>

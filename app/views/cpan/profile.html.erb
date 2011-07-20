@@ -1,0 +1,274 @@
+<style>
+.avatar_grid{
+  width:20%;
+  text-align:center;
+}
+input.pro{
+	height: 20px;
+	margin: 3px 0;
+}
+</style>
+<table cellspacing="0" cellpadding="0" border="0" width="100%" class="fieldsettop">
+    <tbody><tr> 
+        <td>  
+<table cellspacing="0" cellpadding="0" border="0" align="center" width="99%">
+  <tbody><tr> 
+    <td class="infoBg1">&nbsp;</td>
+    <td class="infoBg2"><table cellspacing="0" cellpadding="0" border="0">
+        <tbody><tr> 
+          <td class="legend">我的信息</td>
+        </tr>
+      </tbody></table></td>
+    <td class="infoBg3">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td class="infoBg4">&nbsp;</td>
+    <td>
+
+	<table cellspacing="0" cellpadding="0" border="0" width="100%" class="titleTop3">
+		<tbody><tr>
+			<td style="vertical-align:center;text-align:center;width:200px;" id="td_avatar">
+				<img src="/images/avatars/<%=current_user.avatar%>" /><br />
+				<a href="/cpan/change_avatar" style="margin-top:10px">修改头像</a>
+			</td>
+			<td valign="top"> 
+				<table cellspacing="0" cellpadding="2" border="0">
+					<tbody>
+					<tr> 
+						<td align="right" width="80" nowrap="" class="fieldName">登录学号:</td>
+						 <td>						 
+						 <%=current_user.number%>
+						 </td>
+						<td width="3">&nbsp;</td>
+						<td width="80" class="fieldName">
+							用户等级:
+						</td>
+						<td width="3">&nbsp;</td>
+						<td>  
+						<img src="/images/pips<%= current_user.level%>.gif" />
+						</td>
+
+
+					</tr>
+					<tr> 
+						<td height="3" colspan="6"></td>
+					</tr>
+					<tr> 
+				
+						<td align="right" width="80" nowrap="" class="fieldName">昵称:</td>
+						 <td>						 
+						 <%=current_user.nickname%>
+						 </td>
+						<td width="3">&nbsp;</td>
+
+						<td width="80" class="fieldName">
+							等级头衔:
+						</td>
+						<td width="3">&nbsp;</td>
+						<td>  
+						<span style="color:#990000"><%=current_user.level_name%></span>
+						</td>
+					</tr>
+					
+					<tr> 
+						<td height="3" colspan="6"></td>
+					</tr>
+					<tr> 
+					
+					
+					
+								
+						<td align="right" width="80" nowrap="" class="fieldName">E-mail:</td>
+						 <td>						 
+<%=current_user.email%>
+						 </td>
+						<td width="3">&nbsp;</td>
+
+						<td width="80" class="fieldName">
+							积分:
+						</td>
+						<td width="3">&nbsp;</td>
+						<td>  
+						
+<%= link_to current_user.credit_display,'/cpan/history' %> <%if current_user.credit<0%> (<%=current_user.credit_qingkuang%>)<%end%>
+		
+		
+						</td>
+					</tr>
+					<tr> 
+						<td height="3" colspan="6"></td>
+					</tr>
+					<tr> 
+					
+					
+					
+								
+						<td align="right" width="80" nowrap="" class="fieldName">身份认证:</td>
+						 <td>						 
+						<%=current_user.identified_str%>
+						 </td>
+						
+						<td width="3">&nbsp;</td>
+						<td width="80" class="fieldName">
+							上传数:
+						</td>
+						<td width="3">&nbsp;</td>
+						<td>  
+						
+<%= link_to current_user.coursewares_count,'/cpan/my_res' %>
+		
+		
+						</td>
+						
+
+
+		
+		
+						</td>
+						
+
+					</tr>
+					
+				</tbody></table>
+				</td>
+		</tr>
+	</tbody></table>
+	</td>
+    <td class="infoBg5">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td class="infoBg6">&nbsp;</td>
+    <td class="infoBg2">&nbsp;</td>
+    <td class="infoBg8">&nbsp;</td>
+  </tr>
+</tbody></table>               
+
+<!-- user information -->
+ 
+
+<table cellspacing="0" cellpadding="0" border="0" align="center" width="99%">
+  <tbody><tr> 
+    <td class="infoBg1">&nbsp;</td>
+    <td class="infoBg2"><table cellspacing="0" cellpadding="0" border="0">
+        <tbody><tr> 
+          <td class="legend">个人信息维护</td>
+        </tr>
+      </tbody></table></td>
+    <td class="infoBg3">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td class="infoBg4">&nbsp;</td>
+    <td>
+<%= form_for current_user,:url=>'/cpan/profile' do |f| %>
+	<table cellspacing="0" cellpadding="0" border="0" width="100%" class="titleTop3">
+		<tbody><tr>
+			
+			<td valign="top"> 
+				<table cellspacing="0" cellpadding="2" border="0">
+					<tbody>
+					
+					<tr>
+						<td align="left" width="215" nowrap="" class="fieldName">性别:</td>
+						 <td>
+							<%=f.radio_button :xb,'男'%>男 <%=f.radio_button :xb,'女'%>女
+						 </td><td style="padding-left:10px">
+						 </td>
+						<td width="3">&nbsp;</td>
+					</tr>
+					<tr> 
+						<td height="3" colspan="6"></td>
+					</tr>
+					<tr>
+						<td align="left" width="215" nowrap="" class="fieldName">学院:</td>
+						 <td>
+						 <%=f.select :institute_id,Institute.all.collect {|p| [ p.name, p.id ] }, { :include_blank => true } %>
+						 </td><td style="padding-left:10px">请选择您所在的学院
+						 </td>
+						<td width="3">&nbsp;</td>
+					</tr>
+					<tr> 
+						<td height="3" colspan="6"></td>
+					</tr>
+					<tr>
+						<td align="left" width="215" nowrap="" class="fieldName">昵称:</td>
+						 <td>
+						 <%=f.text_field :nickname,:class=>'pro' %>
+						 </td><td style="padding-left:10px">填写昵称可隐藏学号信息
+						 </td>
+						<td width="3">&nbsp;</td>
+					</tr>
+					<tr> 
+						<td height="3" colspan="6"></td>
+					</tr>
+					<tr> 
+
+						<td class="fieldName">E-mail:</td>
+						<td>
+						<%=f.text_field :email,:class=>'pro'%>
+						</td><td>
+						</td>
+						<td>&nbsp;</td>
+						<td class="fieldName"></td>
+						<td height=""></td>
+						<td>
+						</td>
+					</tr>
+					
+									
+					<tr> 
+						<td height="3" colspan="6" style="text-align:center;padding-bottom:20px;padding-top:5px"><%=f.submit '更新资料'%></td>
+					</tr>
+										<tr> 
+
+						<td class="fieldName">密码:</td>
+						<td>
+						<%=f.password_field :password,:class=>'pro'%>
+						</td><td>
+						</td>
+						<td>&nbsp;</td>
+						<td class="fieldName"></td>
+						<td height=""></td>
+						<td>
+						</td>
+					</tr>
+										<tr> 
+
+						<td class="fieldName">密码确认:</td>
+						<td>
+						<%= f.password_field :password_confirmation,:class=>'pro' %>
+						</td><td>
+						</td>
+						<td>&nbsp;</td>
+						<td class="fieldName"></td>
+						<td height=""></td>
+						<td>
+						</td>
+					</tr>
+					
+					<tr> 
+						<td height="3" colspan="6"></td>
+					</tr>
+					
+					<tr> 
+						<td height="3" colspan="6" style="text-align:center"><%=f.submit '修改密码'%></td>
+					</tr>
+							
+				</tbody></table>
+				</td>
+		</tr>
+	</tbody></table>
+	</td>
+    <td class="infoBg5">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td class="infoBg6">&nbsp;</td>
+    <td class="infoBg2">&nbsp;</td>
+    <td class="infoBg8">&nbsp;</td>
+  </tr>
+</tbody></table>
+<%end%>
+
+
+</td>
+</tr>
+</tbody></table>
