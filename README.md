@@ -70,6 +70,8 @@ def import_info(deep=false)
 * Admin features(set user.is_admin to true to add admins)
 * Et cetera
 
+![Screen Shot](https://github.com/pmq20/CNUKejian/raw/master/images/screenshot.png)
+
 ## The Movie
 
 Have you seen the movie [CNUKejian](http://www.tudou.com/programs/view/cs_3XbMm4Vg/)? It's short but funny though XD.
