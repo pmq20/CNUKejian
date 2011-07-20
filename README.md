@@ -1,6 +1,6 @@
-# CNUKejian
+# CNUKejian -- courseware sharing system
 
-CNUKejian is a courseware sharing system designed for Capital Normal University.
+CNUKejian is a courseware sharing system -- 课件交流系统 -- designed for Capital Normal University -- 首都师范大学 --.
 
 If you happen to be on Capital Normal University campus, this system can be reached at [192.168.145.253](http://192.168.145.253).
 
