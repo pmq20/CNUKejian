@@ -2,7 +2,7 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
-
+require File.expand_path('../../git_sensitive',__FILE__)
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env) if defined?(Bundler)
@@ -15,7 +15,7 @@ module CNUKejian
       :port                 => 587,
       :domain               => 'baci.lindsaar.net',
       :user_name            => 'pmq2001@gmail.com',
-      :password             => 'pmqpmq3577530',
+      :password             => GIT_SENSITIVE_SMTP_PASSWORD,
       :authentication       => 'plain',
       :enable_starttls_auto => true  }
     config.action_mailer.default_url_options = { :host => '192.168.145.253:100' }

@@ -1,4 +1,5 @@
 .bundle
+git_sensitive*
 db/*.sqlite3
 config/database.yml
 log/*.log
