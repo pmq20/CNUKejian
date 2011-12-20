@@ -10,3 +10,4 @@ gem 'chinese_pinyin'
 gem "paperclip", "~> 2.3"
 gem 'devise_lastseenable','0.0.3'
 gem 'mathjax-rails'
+gem 'thin'

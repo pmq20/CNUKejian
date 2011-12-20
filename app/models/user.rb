@@ -171,7 +171,7 @@ class User < ActiveRecord::Base
 	def import_info(deep=false)
 		begin
   		agent = Mechanize.new
-  		agent.get("http://202.204.208.75/loginAction.do?zjh=#{self.number}&mm=#{self.md5pass}")
+  		agent.get("http://jzd.cnu.edu.cn:8033/loginAction.do?zjh=#{self.number}&mm=#{self.md5pass}")
       self.memo = '' if !self.memo
   		if nil==agent.page.forms[0]
   			self.memo += "Logged in.\n"
@@ -317,7 +317,9 @@ private
 	def zhuan_md5
 		if !self.xiaowai and self.password and !self.password.empty?
 			self.md5pass = Digest::MD5.hexdigest(self.password)
-			self.import_info
+Thread.new{
+self.import_info
+}
 		end
 		return true
 	end

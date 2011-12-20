@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Asset < ActiveRecord::Base
 	has_attached_file :data,
-										:url => "/assets/:id",
-										:path => DATA_DIR+"/:id_partition"
+	:url => "/assets/:id",
+	:path => DATA_DIR+"/:id_partition"
 	belongs_to :courseware,:counter_cache=>true
 	
   def url(*args)

@@ -11,21 +11,9 @@
 		<link rel="stylesheet" href="/stylesheets/courses_ie.css" type="text/css" media="screen" />
 	<![endif]-->
 	<!-- style END -->
-	<%= stylesheet_link_tag 'jquery-ui-1.8.13.custom.css' %>
 	<%= javascript_include_tag '/javascripts/jquery.min.js' %>
 	<%= javascript_include_tag '/javascripts/rails.js' %>
 	<%= javascript_include_tag '/javascripts/application.js' %>
-	<%= javascript_include_tag 'jquery-ui-1.8.13.custom.min.js'%>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-      tex2jax: {
-            inlineMath: [ ['$','$'] ],
-	          processEscapes: true
-	}
-});
-</script>
-
-<%= mathjax_tag %>
 
 	<%= csrf_meta_tag %>
 	<script type="text/javascript" src="/jwplayer/jwplayer.js"></script>
@@ -174,6 +162,10 @@ function please_buy_first(id){
 
 </div>
 <!-- container END -->
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fd0ae935da2b640b2daf33fbe071c4c2f' type='text/javascript'%3E%3C/script%3E"));
+</script>
 
 </body>
 

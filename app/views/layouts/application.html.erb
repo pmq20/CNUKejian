@@ -5,11 +5,9 @@
 	<title>CNU课件交流系统 - <%= pos %></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<%= stylesheet_link_tag 'default' %>
-	<%= stylesheet_link_tag 'jquery-ui-1.8.13.custom.css' %>
 	<%= javascript_include_tag '/javascripts/jquery.min.js' %>
 	<%= javascript_include_tag '/javascripts/rails.js' %>
 	<%= javascript_include_tag '/javascripts/application.js' %>
-	<%= javascript_include_tag 'jquery-ui-1.8.13.custom.min.js'%>
 	<%= javascript_include_tag '/jwplayer/jwplayer.js'%>
 	<%= csrf_meta_tag %>
 	<script>
@@ -151,6 +149,10 @@
 
 
 	<%= yield %>
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fd0ae935da2b640b2daf33fbe071c4c2f' type='text/javascript'%3E%3C/script%3E"));
+</script>
 	
 </body>
 </html>

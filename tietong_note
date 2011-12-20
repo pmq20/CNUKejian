@@ -1,0 +1,5 @@
+bundle exec thin start -e production -d --log ./log/thin.log --servers 4 --socket /tmp/thin.kejiantv.sock --chdir /home/wwwroot/CNUKejian --pid tmp/pids/thin.pid --user kejian_manipulator
+
+bundle exec thin stop -e production -d --log ./log/thin.log --servers 4 --socket /tmp/thin.kejiantv.sock --chdir /home/wwwroot/CNUKejian --pid tmp/pids/thin.pid
+
+bundle exec thin restart -e production -d --log ./log/thin.log --servers 4 --socket /tmp/thin.kejiantv.sock --chdir /home/wwwroot/CNUKejian --pid tmp/pids/thin.pid
