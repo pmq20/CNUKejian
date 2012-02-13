@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 CNUKejian::Application.routes.draw do
-mathjax 'mathjax'
-	get "*Cache-Control:%20no-cache" => "welcome#weird"
+
 	get "assets/playflv/:id" => "assets#playflv"
 	get "assets/playwmv/:id" => "assets#playwmv"
 	get "assets/get/:id/*filename" => "assets#show"
