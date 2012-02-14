@@ -9,20 +9,20 @@ class User
 	LEVELRequirement = [ 0,      1 ,   10 ,  50 ,  150 ,  300,
 	                           500 , 1000 ,2000  ,5000 ,10000]
 	                           
-  #   has_many :courses # courses created by the user
-  #   
-  #   has_many :coursewares,:dependent=>:restrict
-  #   has_many :replies,:dependent=>:destroy
-  #   
-  #   has_many :favorites,:dependent=>:destroy
-  # has_many :favorite_courses,:source=>:course,:through=>:favorites
-  #   
-  #   has_many :purchases,:dependent=>:destroy
-  #   has_many :bought_coursewares,:source=>:courseware,:through=>:purchases
-  #   
-  #   belongs_to :institute
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable, :lockable and :timeoutable
+    has_many :courses # courses created by the user
+    
+    has_many :coursewares,:dependent=>:restrict
+    has_many :replies,:dependent=>:destroy
+    
+    has_many :favorites,:dependent=>:destroy
+  has_many :favorite_courses,:source=>:course,:through=>:favorites
+    
+    has_many :purchases,:dependent=>:destroy
+    has_many :bought_coursewares,:source=>:courseware,:through=>:purchases
+    
+    belongs_to :institute
+  Include default devise modules. Others available are:
+  :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :lastseenable
 
