@@ -66,30 +66,30 @@ end
 
 
 # 用户系统
-gem 'devise'
+gem 'devise','2.0.1'
 gem 'devise_lastseenable'
-
-
-# 分词
+# 
+# 
+# # 分词
 gem 'chinese_pinyin'
 gem 'rmmseg-cpp-huacnlee'
-
-# 图片上传
+# 
+# # 图片上传
 gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'mini_magick'
 
 # 分页
-gem 'will_paginate'#,:require=>'will_paginate/array'
-gem "will_paginate_mongoid"
+gem 'will_paginate'
+gem "will_paginate_mongoid",:path => '/Users/psvr/trunk/quora/vendor/will_paginate_mongoid'
 
 # Redis
 gem "redis"
-gem "redis-search"
+gem "redis-search",:path => '/Users/psvr/trunk/quora/vendor/redis-search'
 gem 'redis-namespace'
 
 # Background Jobs
-gem "resque", :require => "resque/server"
+gem "resque", :require => "resque/server", :path => '/Users/psvr/trunk/quora/vendor/resque'
 
 # 设置
 gem 'settingslogic'
@@ -98,3 +98,5 @@ gem 'settingslogic'
 # ___
 gem 'nokogiri'
 gem 'mechanize'
+gem 'voteable_mongo', :path => '/Users/psvr/trunk/quora/vendor/voteable_mongo'
+
