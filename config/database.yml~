@@ -1,10 +1,11 @@
 development:
   adapter: mysql2
   encoding: utf8
+  collation: utf8_general_ci
   reconnect: false
   database: cnu_kejian 
   pool: 5
   username: root
-  password: pmqpmq55
-  host: localhost
+  password: pmqpmq3577530
+  host: 192.168.145.253
 
