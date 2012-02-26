@@ -53,7 +53,7 @@ var unbought = new Object;
 	<td style=""><img src="/images/icon/<%=Asset.filename2icon(str)%>" style="padding-left:10px;padding-right:4px;display:block;float:left"><%=str.strip%></td>
 	<td> - </td>
 	</tr>
-	<%end%>
+	<%end unless `unrar v #{ass.data.path}`.split("\n")[8..-3].blank?%>
 <%end%>
 <% end %>
 

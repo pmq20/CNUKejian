@@ -1,8 +1,5 @@
 # -*- encoding : utf-8 -*-
-class Reply
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  include BaseModel
+class Reply < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :courseware,:counter_cache=>true
 	attr_accessible :body

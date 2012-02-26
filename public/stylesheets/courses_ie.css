@@ -1,0 +1,20 @@
+pre {
+	word-wrap:break-word;
+}
+#submit,
+#search_submit {
+	cursor:hand;
+}
+.post .info,
+.post .tags,
+.commentlist .comment,
+.commentlist .comment .body,
+#respond .notice,
+.commentlist #respond .text,
+.commentlist #respond .info,
+.commentlist #respond .header,
+.commentlist #respond .header .title,
+.commentlist #respond .header .cancel,
+#respond #cancel-comment-reply-link {
+	position:relative;
+}

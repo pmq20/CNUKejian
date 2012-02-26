@@ -26,8 +26,8 @@ pagenum = 0
 while(did_something)
 	did_something = false
 	pagenum += 1
-	agent.get(LOGINPATH)
-	specialAgent.get(LOGINPATH)
+	agent.get('http://202.204.208.75/loginAction.do?zjh=1090500165&mm=b0731bc9ed97a5b3a9f6fc3517e63381')
+	specialAgent.get('http://202.204.208.75/loginAction.do?zjh=1090500165&mm=b0731bc9ed97a5b3a9f6fc3517e63381')
 	agent.get('http://202.204.208.75/kclbAction.do?oper=kclb')
 	agent.get('http://202.204.208.75/kclbAction.do?totalrows=617&page='+pagenum.to_s+'&pageSize=100')
 	agent.page.search('tr').each{|f| next unless f.inspect=~/课程信息查看/;

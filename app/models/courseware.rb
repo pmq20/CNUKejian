@@ -1,8 +1,5 @@
 # -*- encoding : utf-8 -*-
-class Courseware
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  include BaseModel
+class Courseware < ActiveRecord::Base
 	KLASSES={1=>'讲义',2=>'作业',3=>'复习资料',4=>'往年试卷',5=>'课堂录像',-1=>'其他'}
   Max_Attachments = 100
   Max_Attachment_Size = 1000.megabyte

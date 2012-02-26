@@ -1,9 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'chinese_pinyin'
-class Teacher
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  include BaseModel
+class Teacher < ActiveRecord::Base
 	belongs_to :institution
   has_many :teachings
   has_many :courses,:through=>:teachings

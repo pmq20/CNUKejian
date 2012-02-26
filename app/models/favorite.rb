@@ -1,8 +1,5 @@
 # -*- encoding : utf-8 -*-
-class Favorite
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  include BaseModel
+class Favorite < ActiveRecord::Base
   belongs_to :user,:counter_cache=>true
   belongs_to :course,:counter_cache=>true
 

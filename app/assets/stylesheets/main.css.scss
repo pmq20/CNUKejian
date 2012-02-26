@@ -1,8 +1,0 @@
-nav#fixed{
-  width:30px;
-  position:fixed;
-  right:0;
-  top:200px;
-  _position:absolute;
-  _top:expression(documentElement.scrollTop+200);
-}

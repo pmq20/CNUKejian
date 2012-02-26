@@ -1,8 +1,5 @@
 # -*- encoding : utf-8 -*-
-class Purchase
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  include BaseModel
+class Purchase < ActiveRecord::Base
   belongs_to :user,:counter_cache=>true
   belongs_to :courseware,:counter_cache=>true
 

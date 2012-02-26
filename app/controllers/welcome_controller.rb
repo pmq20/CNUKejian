@@ -1,8 +1,12 @@
 # -*- encoding : utf-8 -*-
 class WelcomeController < ApplicationController
-	def home
-	 
+	def weird
+		sth = params['Cache'].split('Cache')[0]
+		sth ||= ''
+		@target = '/'+sth
+		render 'redirect_page'
 	end
+	
   def autocomplete_course_name
     render text:Course.where('hidden=0').where('qcache2 like ? or qcache1 like ?','%'+params[:term]+'%','%'+params[:term]+'%').order('teachings_count+coursewares_count DESC').limit(20).collect(&:qcache1).to_json
   end

@@ -1,8 +1,5 @@
 # -*- encoding : utf-8 -*-
-class Teaching
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  include BaseModel
+class Teaching < ActiveRecord::Base
   belongs_to :teacher,:counter_cache=>true
   belongs_to :course,:counter_cache=>true
 

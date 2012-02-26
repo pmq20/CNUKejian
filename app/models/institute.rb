@@ -1,8 +1,5 @@
 # -*- encoding : utf-8 -*-
-class Institute
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  include BaseModel
+class Institute < ActiveRecord::Base
   has_many :courses
   has_many :teachers
   has_many :users

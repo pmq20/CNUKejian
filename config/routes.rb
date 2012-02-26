@@ -1,5 +1,12 @@
 # -*- encoding : utf-8 -*-
 CNUKejian::Application.routes.draw do
+mathjax 'mathjax'
+	get "*Cache-Control:%20no-cache" => "welcome#weird"
+	get "assets/playflv/:id" => "assets#playflv"
+	get "assets/playwmv/:id" => "assets#playwmv"
+	get "assets/get/:id/*filename" => "assets#show"
+  resources :assets
+
   devise_for :users
 
   #小心隐含在下面的数个action
@@ -43,7 +50,7 @@ CNUKejian::Application.routes.draw do
   post "cpan/change_avatar" => "cpan#change_avatar_post"
 
   post "purchase/:courseware_id" => "welcome#purchase_post"
-  root :to => "welcome#home"
+  root :to => "welcome#index"
   
   get "photo/:id" => "admin#photo"
   get "admin/yonghus" => "admin#yonghus"

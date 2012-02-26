@@ -1,9 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'chinese_pinyin'
-class Course
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  include BaseModel
+class Course < ActiveRecord::Base
 
   belongs_to :institute
   belongs_to :user #who created this?
