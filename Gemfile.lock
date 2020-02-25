@@ -38,11 +38,10 @@ GEM
       warden (~> 1.0.3)
     devise_lastseenable (0.0.3)
       devise
-      devise
-      rails (>= 3.0.4)
       rails (>= 3.0.4)
       warden
-      warden
+    domain_name (0.5.20190701)
+      unf (>= 0.0.5, < 1.0.0)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     i18n (0.5.0)
@@ -58,11 +57,21 @@ GEM
       treetop (~> 1.4.8)
     mathjax-rails (0.0.2)
       railties (~> 3.0)
-    mechanize (1.0.0)
-      nokogiri (>= 1.2.1)
+    mechanize (2.1.1)
+      domain_name (~> 0.5, >= 0.5.1)
+      net-http-digest_auth (~> 1.1, >= 1.1.1)
+      net-http-persistent (~> 2.4, >= 2.4.1)
+      nokogiri (~> 1.4)
+      ntlm-http (~> 0.1, >= 0.1.1)
+      webrobots (~> 0.0, >= 0.0.9)
     mime-types (1.16)
+    mini_portile2 (2.4.0)
     mysql2 (0.2.6)
-    nokogiri (1.4.4)
+    net-http-digest_auth (1.4.1)
+    net-http-persistent (2.9.4)
+    nokogiri (1.10.8)
+      mini_portile2 (~> 2.4.0)
+    ntlm-http (0.1.1)
     orm_adapter (0.0.5)
     paperclip (2.3.11)
       activerecord (>= 2.3.0)
@@ -92,8 +101,12 @@ GEM
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.27)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.6)
     warden (1.0.4)
       rack (>= 1.0)
+    webrobots (0.1.2)
 
 PLATFORMS
   ruby
@@ -105,8 +118,11 @@ DEPENDENCIES
   jquery-rails
   kaminari
   mathjax-rails
-  mechanize
+  mechanize (>= 1.0.0)
   mysql2 (= 0.2.6)
   paperclip (~> 2.3)
   pg
   rails
+
+BUNDLED WITH
+   1.17.3
