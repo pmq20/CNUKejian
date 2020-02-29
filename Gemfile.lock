@@ -38,10 +38,7 @@ GEM
       warden (~> 1.0.3)
     devise_lastseenable (0.0.3)
       devise
-      devise
       rails (>= 3.0.4)
-      rails (>= 3.0.4)
-      warden
       warden
     erubis (2.6.6)
       abstract (>= 1.0.0)
@@ -87,7 +84,7 @@ GEM
       activesupport (= 3.0.7)
       rake (>= 0.8.7)
       thor (~> 0.14.4)
-    rake (0.9.1)
+    rake (13.0.1)
     thor (0.14.6)
     treetop (1.4.9)
       polyglot (>= 0.3.1)
