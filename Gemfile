@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails'
 gem 'pg'
-gem 'jquery-rails'
+gem 'jquery-rails', '>= 3.1.3'
 gem 'kaminari'
 gem 'devise'
 gem 'mysql2','0.2.6'
