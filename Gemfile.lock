@@ -38,10 +38,7 @@ GEM
       warden (~> 1.0.3)
     devise_lastseenable (0.0.3)
       devise
-      devise
       rails (>= 3.0.4)
-      rails (>= 3.0.4)
-      warden
       warden
     erubis (2.6.6)
       abstract (>= 1.0.0)
@@ -69,7 +66,7 @@ GEM
       activesupport (>= 2.3.2)
     pg (0.11.0)
     polyglot (0.3.1)
-    rack (1.2.3)
+    rack (1.2.8)
     rack-mount (0.6.14)
       rack (>= 1.0.0)
     rack-test (0.5.7)
