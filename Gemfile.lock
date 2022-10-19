@@ -38,10 +38,7 @@ GEM
       warden (~> 1.0.3)
     devise_lastseenable (0.0.3)
       devise
-      devise
       rails (>= 3.0.4)
-      rails (>= 3.0.4)
-      warden
       warden
     erubis (2.6.6)
       abstract (>= 1.0.0)
@@ -61,14 +58,18 @@ GEM
     mechanize (1.0.0)
       nokogiri (>= 1.2.1)
     mime-types (1.16)
+    mini_portile2 (2.8.0)
     mysql2 (0.2.6)
-    nokogiri (1.4.4)
+    nokogiri (1.13.9)
+      mini_portile2 (~> 2.8.0)
+      racc (~> 1.4)
     orm_adapter (0.0.5)
     paperclip (2.3.11)
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
     pg (0.11.0)
     polyglot (0.3.1)
+    racc (1.6.0)
     rack (1.2.3)
     rack-mount (0.6.14)
       rack (>= 1.0.0)
